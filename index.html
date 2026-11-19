@@ -196,7 +196,151 @@
       <div aria-label="Тут можна бути собою" class="closing-strip">
         <p>Тут можна бути собою</p>
       </div>
-      <!-- About: portrait-led editorial biography -->
+      <section
+        aria-labelledby="requests-title"
+        class="requests requests--photographic"
+        id="requests"
+      >
+        <div class="container requests__inner">
+          <header class="requests__header reveal">
+            <p class="requests__eyebrow">
+              <span aria-hidden="true"></span> ПРО ЩО МОЖНА ГОВОРИТИ В ТЕРАПІЇ
+            </p>
+            <h2 class="requests__title" id="requests-title">
+              З якими запитами <em>до мене приходять</em>
+            </h2>
+            <p class="requests__intro">
+              У кожної історії свій початок. Можливо, у цих словах ви впізнаєте
+              щось своє.
+            </p>
+          </header>
+          <div aria-label="Категорії запитів" class="requests-photo__grid">
+            <button
+              aria-haspopup="dialog"
+              aria-label="Детальніше: Пошук себе та зміни в житті"
+              class="requests-photo__card requests-photo__card--1"
+              data-request-open="0"
+              type="button"
+            >
+              <img
+                alt=""
+                decoding="async"
+                loading="lazy"
+                src="img/requests-personal.webp"
+              /><span aria-hidden="true" class="requests-photo__shade"></span
+              ><span class="requests-photo__content"
+                ><span class="requests-photo__name"
+                  >Пошук себе та зміни в житті</span
+                ><span class="requests-photo__more"
+                  >Дізнатися більше</span
+                ></span
+              ></button
+            ><button
+              aria-haspopup="dialog"
+              aria-label="Детальніше: Пошук кохання та повторювані сценарії у стосунках"
+              class="requests-photo__card requests-photo__card--2"
+              data-request-open="1"
+              type="button"
+            >
+              <img
+                alt=""
+                decoding="async"
+                loading="lazy"
+                src="img/requests-relationships.jpg"
+              /><span aria-hidden="true" class="requests-photo__shade"></span
+              ><span class="requests-photo__content"
+                ><span class="requests-photo__name"
+                  >Пошук кохання та повторювані сценарії у стосунках</span
+                ><span class="requests-photo__more"
+                  >Дізнатися більше</span
+                ></span
+              ></button
+            ><button
+              aria-haspopup="dialog"
+              aria-label="Детальніше: Конфлікти, віддалення та виснаження у парі"
+              class="requests-photo__card requests-photo__card--3"
+              data-request-open="2"
+              type="button"
+            >
+              <img
+                alt=""
+                decoding="async"
+                loading="lazy"
+                src="img/relationships.jpg"
+              /><span aria-hidden="true" class="requests-photo__shade"></span
+              ><span class="requests-photo__content"
+                ><span class="requests-photo__name"
+                  >Конфлікти, віддалення та виснаження у парі</span
+                ><span class="requests-photo__more"
+                  >Дізнатися більше</span
+                ></span
+              ></button
+            ><button
+              aria-haspopup="dialog"
+              aria-label="Детальніше: Зрада, розрив або розлучення"
+              class="requests-photo__card requests-photo__card--4"
+              data-request-open="3"
+              type="button"
+            >
+              <img
+                alt=""
+                decoding="async"
+                loading="lazy"
+                src="img/requests-personal-r.webp"
+              /><span aria-hidden="true" class="requests-photo__shade"></span
+              ><span class="requests-photo__content"
+                ><span class="requests-photo__name"
+                  >Зрада, розрив або розлучення</span
+                ><span class="requests-photo__more"
+                  >Дізнатися більше</span
+                ></span
+              ></button
+            ><button
+              aria-haspopup="dialog"
+              aria-label="Детальніше: Тривога, емоційне виснаження та пригнічений стан"
+              class="requests-photo__card requests-photo__card--5"
+              data-request-open="4"
+              type="button"
+            >
+              <img
+                alt=""
+                decoding="async"
+                loading="lazy"
+                src="img/requests-inner-state.webp"
+              /><span aria-hidden="true" class="requests-photo__shade"></span
+              ><span class="requests-photo__content"
+                ><span class="requests-photo__name"
+                  >Тривога, емоційне виснаження та пригнічений стан</span
+                ><span class="requests-photo__more"
+                  >Дізнатися більше</span
+                ></span
+              >
+            </button>
+          </div>
+          <div class="requests__closing reveal">
+            <div class="requests__closing-copy">
+              <span aria-hidden="true" class="requests__closing-mark">“</span>
+              <p>
+                Не обов’язково мати чітко сформульований запит. Якщо вам важко,
+                але складно пояснити чому, ми почнемо з цього.
+              </p>
+            </div>
+            <a
+              class="button requests__closing-button"
+              href="https://t.me/OleksandraHankevych"
+              rel="noopener noreferrer"
+              target="_blank"
+              ><span>Записатися на консультацію</span
+              ><svg aria-hidden="true" class="arrow">
+                <use href="#arrow-long"></use></svg
+            ></a>
+          </div>
+        </div>
+      </section>
+
+      <div class="closing-strip requests-transition">
+        <p>Для кожної історії є простір бути почутою</p>
+      </div>
       <section aria-labelledby="about-title" class="about" id="about">
         <div class="container about__layout">
           <div class="about__visual reveal">
@@ -405,29 +549,109 @@
                     /></span>
                   </button>
                 </article>
-                <article class="education__slide" role="group" aria-label="Сертифікат 4 із 17">
-                  <button class="education__certificate" data-certificate="3" type="button" aria-label="Збільшити: Посвідчення про членство в Українській асоціації системних розстановок, 2024">
-                    <span class="education__image"><img src="img/certificates/membership-uasr.webp" alt="Посвідчення про членство в Українській асоціації системних розстановок, 2024" decoding="async" loading="lazy" data-orientation="landscape" /></span>
+                <article
+                  class="education__slide"
+                  role="group"
+                  aria-label="Сертифікат 4 із 17"
+                >
+                  <button
+                    class="education__certificate"
+                    data-certificate="3"
+                    type="button"
+                    aria-label="Збільшити: Посвідчення про членство в Українській асоціації системних розстановок, 2024"
+                  >
+                    <span class="education__image"
+                      ><img
+                        src="img/certificates/membership-uasr.webp"
+                        alt="Посвідчення про членство в Українській асоціації системних розстановок, 2024"
+                        decoding="async"
+                        loading="lazy"
+                        data-orientation="landscape"
+                    /></span>
                   </button>
                 </article>
-                <article class="education__slide" role="group" aria-label="Сертифікат 5 із 17">
-                  <button class="education__certificate" data-certificate="4" type="button" aria-label="Збільшити: Сертифікат консультанта із системних сімейних розстановок, УАСР, 2024">
-                    <span class="education__image"><img src="img/certificates/systemic-consultant-uasr.webp" alt="Сертифікат консультанта із системних сімейних розстановок, УАСР, 2024" decoding="async" loading="lazy" data-orientation="landscape" /></span>
+                <article
+                  class="education__slide"
+                  role="group"
+                  aria-label="Сертифікат 5 із 17"
+                >
+                  <button
+                    class="education__certificate"
+                    data-certificate="4"
+                    type="button"
+                    aria-label="Збільшити: Сертифікат консультанта із системних сімейних розстановок, УАСР, 2024"
+                  >
+                    <span class="education__image"
+                      ><img
+                        src="img/certificates/systemic-consultant-uasr.webp"
+                        alt="Сертифікат консультанта із системних сімейних розстановок, УАСР, 2024"
+                        decoding="async"
+                        loading="lazy"
+                        data-orientation="landscape"
+                    /></span>
                   </button>
                 </article>
-                <article class="education__slide" role="group" aria-label="Сертифікат 6 із 17">
-                  <button class="education__certificate" data-certificate="5" type="button" aria-label="Збільшити: Сертифікат консультанта із системних сімейних розстановок, УАСР, 2024">
-                    <span class="education__image"><img src="img/certificates/systemic-consultant-uasr-additional.webp" alt="Сертифікат консультанта із системних сімейних розстановок, УАСР, 2024" decoding="async" loading="lazy" data-orientation="landscape" /></span>
+                <article
+                  class="education__slide"
+                  role="group"
+                  aria-label="Сертифікат 6 із 17"
+                >
+                  <button
+                    class="education__certificate"
+                    data-certificate="5"
+                    type="button"
+                    aria-label="Збільшити: Сертифікат консультанта із системних сімейних розстановок, УАСР, 2024"
+                  >
+                    <span class="education__image"
+                      ><img
+                        src="img/certificates/systemic-consultant-uasr-additional.webp"
+                        alt="Сертифікат консультанта із системних сімейних розстановок, УАСР, 2024"
+                        decoding="async"
+                        loading="lazy"
+                        data-orientation="landscape"
+                    /></span>
                   </button>
                 </article>
-                <article class="education__slide" role="group" aria-label="Сертифікат 7 із 17">
-                  <button class="education__certificate" data-certificate="6" type="button" aria-label="Збільшити: Когнітивно-поведінкова модель у психологічному консультуванні дорослих, 2022">
-                    <span class="education__image"><img src="img/certificates/cognitive-behavioral-model.webp" alt="Когнітивно-поведінкова модель у психологічному консультуванні дорослих, 2022" decoding="async" loading="lazy" data-orientation="landscape" /></span>
+                <article
+                  class="education__slide"
+                  role="group"
+                  aria-label="Сертифікат 7 із 17"
+                >
+                  <button
+                    class="education__certificate"
+                    data-certificate="6"
+                    type="button"
+                    aria-label="Збільшити: Когнітивно-поведінкова модель у психологічному консультуванні дорослих, 2022"
+                  >
+                    <span class="education__image"
+                      ><img
+                        src="img/certificates/cognitive-behavioral-model.webp"
+                        alt="Когнітивно-поведінкова модель у психологічному консультуванні дорослих, 2022"
+                        decoding="async"
+                        loading="lazy"
+                        data-orientation="landscape"
+                    /></span>
                   </button>
                 </article>
-                <article class="education__slide" role="group" aria-label="Сертифікат 8 із 17">
-                  <button class="education__certificate" data-certificate="7" type="button" aria-label="Збільшити: Основи системних розстановок, UpPro School, 2024">
-                    <span class="education__image"><img src="img/certificates/uppro-systemic-constellations.webp" alt="Основи системних розстановок, UpPro School, 2024" decoding="async" loading="lazy" data-orientation="landscape" /></span>
+                <article
+                  class="education__slide"
+                  role="group"
+                  aria-label="Сертифікат 8 із 17"
+                >
+                  <button
+                    class="education__certificate"
+                    data-certificate="7"
+                    type="button"
+                    aria-label="Збільшити: Основи системних розстановок, UpPro School, 2024"
+                  >
+                    <span class="education__image"
+                      ><img
+                        src="img/certificates/uppro-systemic-constellations.webp"
+                        alt="Основи системних розстановок, UpPro School, 2024"
+                        decoding="async"
+                        loading="lazy"
+                        data-orientation="landscape"
+                    /></span>
                   </button>
                 </article>
                 <article
@@ -741,13 +965,13 @@
             <article class="pricing__item reveal">
               <div class="pricing__item-top">
                 <div class="pricing__service">
-                  <h3>Пакет 4 сімейні консультації</h3>
+                  <h3>Пакет - 4 сімейні консультації</h3>
                   <p>4 × 1 година 30 хвилин</p>
                 </div>
                 <p class="pricing__price">12 000 <span>₴</span></p>
               </div>
               <button
-                aria-label="Обрати пакет: Пакет 4 сімейні консультації"
+                aria-label="Обрати пакет: Пакет - 4 сімейні консультації"
                 class="button pricing__buy"
                 data-payment="family-pack"
                 type="button"
@@ -759,6 +983,17 @@
               </button>
             </article>
           </div>
+          <div class="pricing__packages-info reveal" aria-labelledby="pricing-packages-title">
+            <div class="pricing__packages-copy">
+              <h3 id="pricing-packages-title">Можна почати з <em>однієї консультації</em></h3>
+              <p>Запишіться на першу зустріч, щоб познайомитися й зрозуміти, чи підходить вам такий формат роботи. Якщо після зустрічі ви вирішите обрати пакет, я зарахую першу консультацію як одну з чотирьох. Ви доплатите лише різницю між вартістю пакета й уже оплаченою консультацією.</p>
+              <p class="pricing__packages-validity">Пакет діє <strong>3 місяці з дати його оплати</strong>.</p>
+            </div>
+            <a class="button pricing__packages-cta" href="https://t.me/OleksandraHankevych" target="_blank" rel="noopener noreferrer">
+              <span>Записатися на консультацію</span>
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-long"></use></svg>
+            </a>
+          </div>
           <p
             aria-live="polite"
             class="pricing__payment-note"
@@ -768,151 +1003,7 @@
           ></p>
         </div>
       </section>
-      <!-- Gentle transition from pricing to therapy requests -->
-      <div class="closing-strip requests-transition">
-        <p>Для кожної історії є простір бути почутою</p>
-      </div>
-      <section
-        aria-labelledby="requests-title"
-        class="requests requests--photographic"
-        id="requests"
-      >
-        <div class="container requests__inner">
-          <header class="requests__header reveal">
-            <p class="requests__eyebrow">
-              <span aria-hidden="true"></span> ПРО ЩО МОЖНА ГОВОРИТИ В ТЕРАПІЇ
-            </p>
-            <h2 class="requests__title" id="requests-title">
-              З якими запитами <em>до мене приходять</em>
-            </h2>
-            <p class="requests__intro">
-              У кожної історії свій початок. Можливо, у цих словах ви впізнаєте
-              щось своє.
-            </p>
-          </header>
-          <div aria-label="Категорії запитів" class="requests-photo__grid">
-            <button
-              aria-haspopup="dialog"
-              aria-label="Детальніше: Пошук себе та зміни в житті"
-              class="requests-photo__card requests-photo__card--1"
-              data-request-open="0"
-              type="button"
-            >
-              <img
-                alt=""
-                decoding="async"
-                loading="lazy"
-                src="img/requests-personal.webp"
-              /><span aria-hidden="true" class="requests-photo__shade"></span
-              ><span class="requests-photo__content"
-                ><span class="requests-photo__name"
-                  >Пошук себе та зміни в житті</span
-                ><span class="requests-photo__more"
-                  >Дізнатися більше</span
-                ></span
-              ></button
-            ><button
-              aria-haspopup="dialog"
-              aria-label="Детальніше: Пошук кохання та повторювані сценарії у стосунках"
-              class="requests-photo__card requests-photo__card--2"
-              data-request-open="1"
-              type="button"
-            >
-              <img
-                alt=""
-                decoding="async"
-                loading="lazy"
-                src="img/requests-relationships.jpg"
-              /><span aria-hidden="true" class="requests-photo__shade"></span
-              ><span class="requests-photo__content"
-                ><span class="requests-photo__name"
-                  >Пошук кохання та повторювані сценарії у стосунках</span
-                ><span class="requests-photo__more"
-                  >Дізнатися більше</span
-                ></span
-              ></button
-            ><button
-              aria-haspopup="dialog"
-              aria-label="Детальніше: Конфлікти, віддалення та виснаження у парі"
-              class="requests-photo__card requests-photo__card--3"
-              data-request-open="2"
-              type="button"
-            >
-              <img
-                alt=""
-                decoding="async"
-                loading="lazy"
-                src="img/relationships.jpg"
-              /><span aria-hidden="true" class="requests-photo__shade"></span
-              ><span class="requests-photo__content"
-                ><span class="requests-photo__name"
-                  >Конфлікти, віддалення та виснаження у парі</span
-                ><span class="requests-photo__more"
-                  >Дізнатися більше</span
-                ></span
-              ></button
-            ><button
-              aria-haspopup="dialog"
-              aria-label="Детальніше: Зрада, розрив або розлучення"
-              class="requests-photo__card requests-photo__card--4"
-              data-request-open="3"
-              type="button"
-            >
-              <img
-                alt=""
-                decoding="async"
-                loading="lazy"
-                src="img/requests-personal-r.webp"
-              /><span aria-hidden="true" class="requests-photo__shade"></span
-              ><span class="requests-photo__content"
-                ><span class="requests-photo__name"
-                  >Зрада, розрив або розлучення</span
-                ><span class="requests-photo__more"
-                  >Дізнатися більше</span
-                ></span
-              ></button
-            ><button
-              aria-haspopup="dialog"
-              aria-label="Детальніше: Тривога, емоційне виснаження та пригнічений стан"
-              class="requests-photo__card requests-photo__card--5"
-              data-request-open="4"
-              type="button"
-            >
-              <img
-                alt=""
-                decoding="async"
-                loading="lazy"
-                src="img/requests-inner-state.webp"
-              /><span aria-hidden="true" class="requests-photo__shade"></span
-              ><span class="requests-photo__content"
-                ><span class="requests-photo__name"
-                  >Тривога, емоційне виснаження та пригнічений стан</span
-                ><span class="requests-photo__more"
-                  >Дізнатися більше</span
-                ></span
-              >
-            </button>
-          </div>
-          <div class="requests__closing reveal">
-            <div class="requests__closing-copy">
-              <span aria-hidden="true" class="requests__closing-mark">“</span>
-              <p>
-                Не обов’язково мати чітко сформульований запит. Якщо вам важко,
-                але складно пояснити чому, ми почнемо з цього.
-              </p>
-            </div>
-            <a
-              class="button requests__closing-button"
-              href="https://t.me/OleksandraHankevych"
-              rel="noopener noreferrer"
-              target="_blank"
-              ><span>Записатися на консультацію</span
-              ><svg aria-hidden="true" class="arrow">
-                <use href="#arrow-long"></use></svg
-            ></a>
-          </div>
-        </div>
-      </section>
+
       <dialog
         aria-labelledby="requests-dialog-title-5"
         class="education-modal requests-dialog"
@@ -1170,18 +1261,17 @@
                   <li>Не знаю, яку роботу обрати.</li>
                   <li>Постійно порівнюю себе з іншими.</li>
                   <li>Боюся помилитися.</li>
-                  <li>Важко сказати батькам «ні».</li>
                   <li>Живу так, як від мене очікують.</li>
                 </ul>
               </div>
               <div class="requests__column requests__column--work">
                 <h4>Над чим працюватимемо</h4>
                 <ul>
-                  <li>Шукати, що важливо саме вам.</li>
+                  <li>Будемо шукати, що важливо саме вам.</li>
                   <li>Відрізняти свої бажання від чужих очікувань.</li>
                   <li>Будувати межі з батьками без постійної провини.</li>
-                  <li>Більше довіряти власним рішенням.</li>
-                  <li>Визначити наступні кроки у роботі та житті.</li>
+                  <li>Вчитися довіряти власним рішенням.</li>
+                  <li>Визначимо наступні кроки у роботі та житті.</li>
                 </ul>
               </div>
             </div>
@@ -2081,8 +2171,8 @@
               <li class="education-modal__entry">
                 <span>2007–2011</span>
                 <p>
-                  Інститут Гештальта та Психодрами 1–2 ступені. Спеціальність:
-                  «Психолог-консультант»
+                  иївський інститут гештальту та психодрами, I та II ступені
+                  навчання. Кваліфікація — психолог-консультант.
                 </p>
               </li>
               <li class="education-modal__entry">

@@ -4649,3 +4649,62 @@ body.blog-dialog-open {
     width: 100%;
   }
 }
+
+/* Explanation of consultation packages — within the existing pricing section. */
+.pricing__packages-info {
+  margin-top: 40px;
+}
+.pricing__packages-copy {
+  max-width: 850px;
+}
+.pricing__packages-copy h3 {
+  margin: 0 0 20px;
+  font: 400 clamp(28px, 3vw, 40px)/1.2 var(--font-accent);
+  letter-spacing: -0.045em;
+}
+.pricing__packages-copy h3 em {
+  color: var(--blue);
+  font-weight: 400;
+}
+.pricing__packages-copy p {
+  margin: 0;
+  font: 400 clamp(15px, 1.3vw, 18px)/1.8 var(--font-sans);
+  color: var(--brown);
+}
+.pricing__packages-copy .pricing__packages-validity {
+  margin-top: 18px;
+}
+.pricing__packages-validity strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Consultation package CTA — alongside copy on desktop, below on mobile. */
+.pricing__packages-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(28px, 5vw, 80px);
+}
+.pricing__packages-copy {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.pricing__packages-cta {
+  flex: 0 0 auto;
+}
+@media (max-width: 900px) {
+  .pricing__packages-info {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 26px;
+    margin-top: 20px;
+  }
+  .pricing__packages-copy {
+    flex: none;
+  }
+  .pricing__packages-cta {
+    width: 100%;
+    white-space: normal;
+  }
+}
