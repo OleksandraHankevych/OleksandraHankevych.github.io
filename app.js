@@ -307,11 +307,15 @@ requestDetails.forEach(item => item.addEventListener('toggle', () => {
       const button = form.querySelector('[type="submit"]');
       button.disabled = true;
       status.dataset.state = ''; status.textContent = 'Надсилаємо заявку…';
-      const requestId = (globalThis.crypto?.randomUUID?.() || String(Date.now()) + Math.random());
+      const requestId = (crypto.randomUUID?.() ||
+        'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+          const r = Math.floor(Math.random() * 16);
+          return (c === 'x' ? r : (r & 3 | 8)).toString(16);
+        }));
       const frame = document.createElement('iframe');
-      frame.name = 'lead-submit-' + requestId.replace(/[^a-zA-Z0-9-]/g, '');
+      frame.name = 'lead-submit-' + requestId;
       frame.hidden = true;
-      frame.setAttribute('title', 'Надсилання заявки');
+      frame.title = 'Надсилання заявки';
       document.body.append(frame);
       const post = document.createElement('form');
       post.method = 'POST'; post.action = endpoint; post.target = frame.name; post.hidden = true;
@@ -319,38 +323,56 @@ requestDetails.forEach(item => item.addEventListener('toggle', () => {
       values.requestId = requestId;
       values.consent = 'yes';
       Object.entries(values).forEach(([name, value]) => {
-        const input = document.createElement('input'); input.type = 'hidden';
-        input.name = name; input.value = value; post.append(input);
+        const input = document.createElement('input');
+        input.type = 'hidden'; input.name = name; input.value = value;
+        post.append(input);
       });
       document.body.append(post);
-      let timer;
-      const cleanup = () => {
-        clearTimeout(timer); window.removeEventListener('message', onMessage);
-        post.remove(); frame.remove(); button.disabled = false;
-      };
-      const onMessage = event => {
-        if (!/^(https:\/\/([a-z0-9-]+\.)*(googleusercontent\.com|google\.com)|null)$/i.test(event.origin)) return;
-        let data = event.data;
-        if (typeof data === 'string') { try { data = JSON.parse(data); } catch { return; } }
-        if (!data || data.type !== 'lead-form-result' || data.requestId !== requestId) return;
-        cleanup();
-        if (data.ok === true) {
-          form.reset(); fields.forEach(field => { field.removeAttribute('aria-invalid');
-            field.closest('label')?.querySelector('.lead-form__error')?.remove(); });
-          status.textContent = '';
+
+      // Google Apps Script cannot reliably postMessage out of its sandbox.
+      // Poll a receipt that contains ONLY a request ID and delivery status.
+      const checkReceipt = () => new Promise(resolve => {
+        const callback = 'leadReceipt_' + requestId.replace(/-/g, '_');
+        const script = document.createElement('script');
+        let settled = false;
+        const finish = result => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          delete window[callback];
+          script.remove();
+          resolve(result === true);
+        };
+        window[callback] = data => finish(data?.ok === true);
+        script.onerror = () => finish(false);
+        const timer = setTimeout(() => finish(false), 2200);
+        script.src = endpoint + '?id=' + encodeURIComponent(requestId) +
+          '&callback=' + callback + '&t=' + Date.now();
+        document.head.append(script);
+      });
+      try {
+        post.submit();
+        let delivered = false;
+        for (let attempt = 0; attempt < 8; attempt++) {
+          await new Promise(resolve => setTimeout(resolve, 900));
+          if (await checkReceipt()) { delivered = true; break; }
+        }
+        if (delivered) {
+          form.reset();
+          fields.forEach(field => {
+            field.removeAttribute('aria-invalid');
+            field.closest('label')?.querySelector('.lead-form__error')?.remove();
+          });
+          status.textContent = ''; status.dataset.state = '';
           if (dialog?.open) dialog.close();
           successDialog?.showModal(); syncLock();
         } else {
           status.dataset.state = 'error';
-          status.textContent = 'Не вдалося надіслати заявку. Спробуйте ще раз або напишіть у Telegram.';
+          status.textContent = 'Не вдалося підтвердити доставку. Перевірте Telegram перед повторним надсиланням.';
         }
-      };
-      window.addEventListener('message', onMessage);
-      timer = setTimeout(() => {
-        cleanup(); status.dataset.state = 'error';
-        status.textContent = 'Google не підтвердив результат. Перевірте Telegram і не надсилайте повторно, якщо заявка вже прийшла.';
-      }, 10000);
-      post.submit();
+      } finally {
+        post.remove(); frame.remove(); button.disabled = false;
+      }
     });
   });
 })();
