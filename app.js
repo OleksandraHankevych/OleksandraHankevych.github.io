@@ -223,3 +223,133 @@ requestDetails.forEach(item => item.addEventListener('toggle', () => {
     dialog.addEventListener('close', syncLock);
   });
 })();
+
+// Lead forms: client-side validation and verified Apps Script response via hidden iframe.
+(() => {
+  const dialog = document.querySelector('#lead-dialog');
+  const successDialog = document.querySelector('#lead-success');
+  const syncLock = () => document.body.classList.toggle('education-dialog-open',
+    Boolean(dialog?.open || successDialog?.open));
+  if (dialog) {
+    document.querySelectorAll('[data-lead-open]').forEach(button => button.addEventListener('click', () => {
+      dialog.showModal(); syncLock();
+    }));
+    dialog.querySelector('[data-lead-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', syncLock);
+  }
+  if (successDialog) {
+    successDialog.querySelectorAll('[data-success-close]').forEach(button =>
+      button.addEventListener('click', () => successDialog.close()));
+    successDialog.addEventListener('click', event => { if (event.target === successDialog) successDialog.close(); });
+    successDialog.addEventListener('close', syncLock);
+  }
+
+  // Paste your deployed Google Apps Script Web App /exec URL here.
+  const endpoint = 'https://script.google.com/macros/s/AKfycbyNqMFeBxNjetNcwBsPIsjfmaO83rlB3c45RN2ABCCuC1eDbYNqQI8ec6RGn9FFOkB4FQ/exec';
+  // International format (+country code), plus Ukrainian domestic numbers.
+  const phoneValid = value => {
+    const raw = value.trim();
+    if (!/^[+\d\s()\-]+$/.test(raw) || (raw.match(/\+/g) || []).length > 1) return false;
+    const digits = raw.replace(/\D/g, '');
+    return raw.startsWith('+')
+      ? /^\+[1-9]/.test(raw) && digits.length >= 8 && digits.length <= 15
+      : /^0\d{9}$/.test(digits);
+  };
+  const errors = {
+    name: 'Введіть ім’я (щонайменше 2 символи).',
+    phone: 'Введіть номер з кодом країни (+...), або український 0XXXXXXXXX.',
+    consent: 'Потрібна згода на обробку контактних даних.'
+  };
+  const validateField = field => {
+    let valid = true;
+    if (field.name === 'name') valid = field.value.trim().length >= 2;
+    if (field.name === 'phone') valid = phoneValid(field.value);
+    if (field.name === 'consent') valid = field.checked;
+    field.setAttribute('aria-invalid', String(!valid));
+    const label = field.closest('label');
+    if (label && field.name !== 'consent') {
+      let error = label.querySelector('.lead-form__error');
+      if (!valid && !error) {
+        error = document.createElement('span'); error.className = 'lead-form__error';
+        label.append(error);
+      }
+      if (error) { error.textContent = valid ? '' : errors[field.name]; error.hidden = valid; }
+    }
+    return valid;
+  };
+  document.querySelectorAll('[data-lead-form]').forEach(form => {
+    const status = form.querySelector('.lead-form__status');
+    const fields = [...form.querySelectorAll('[name="name"], [name="phone"], [name="consent"]')];
+    fields.forEach(field => {
+      field.addEventListener(field.type === 'checkbox' ? 'change' : 'input', () => {
+        if (field.name === 'phone') {
+          // Block letters in both phone fields, including pasted text.
+          const cleaned = field.value.replace(/[^+\d\s()\-]/g, '').replace(/(?!^)\+/g, '');
+          if (cleaned !== field.value) field.value = cleaned;
+          validateField(field);
+        } else if (field.hasAttribute('aria-invalid')) validateField(field);
+      });
+    });
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      const valid = fields.map(validateField).every(Boolean);
+      if (!valid) {
+        status.dataset.state = 'error'; status.textContent = 'Перевірте, будь ласка, позначені поля.';
+        fields.find(field => field.getAttribute('aria-invalid') === 'true')?.focus();
+        return;
+      }
+      if (!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(endpoint)) {
+        status.dataset.state = 'error';
+        status.textContent = 'Форму ще не підключено. Напишіть, будь ласка, у Telegram.';
+        return;
+      }
+      const button = form.querySelector('[type="submit"]');
+      button.disabled = true;
+      status.dataset.state = ''; status.textContent = 'Надсилаємо заявку…';
+      const requestId = crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random();
+      const frame = document.createElement('iframe');
+      frame.name = 'lead-submit-' + requestId.replace(/[^a-zA-Z0-9-]/g, '');
+      frame.hidden = true;
+      frame.setAttribute('title', 'Надсилання заявки');
+      document.body.append(frame);
+      const post = document.createElement('form');
+      post.method = 'POST'; post.action = endpoint; post.target = frame.name; post.hidden = true;
+      const values = Object.fromEntries(new FormData(form).entries());
+      values.requestId = requestId;
+      values.consent = 'yes';
+      Object.entries(values).forEach(([name, value]) => {
+        const input = document.createElement('input'); input.type = 'hidden';
+        input.name = name; input.value = value; post.append(input);
+      });
+      document.body.append(post);
+      let timer;
+      const cleanup = () => {
+        clearTimeout(timer); window.removeEventListener('message', onMessage);
+        post.remove(); frame.remove(); button.disabled = false;
+      };
+      const onMessage = event => {
+        if (!/^(https:\/\/([a-z0-9-]+\.)*(googleusercontent\.com|google\.com)|null)$/i.test(event.origin)) return;
+        const data = event.data;
+        if (!data || data.type !== 'lead-form-result' || data.requestId !== requestId) return;
+        cleanup();
+        if (data.ok === true) {
+          form.reset(); fields.forEach(field => { field.removeAttribute('aria-invalid');
+            field.closest('label')?.querySelector('.lead-form__error')?.remove(); });
+          status.textContent = '';
+          if (dialog?.open) dialog.close();
+          successDialog?.showModal(); syncLock();
+        } else {
+          status.dataset.state = 'error';
+          status.textContent = 'Не вдалося надіслати заявку. Спробуйте ще раз або напишіть у Telegram.';
+        }
+      };
+      window.addEventListener('message', onMessage);
+      timer = setTimeout(() => {
+        cleanup(); status.dataset.state = 'error';
+        status.textContent = 'Не отримали підтвердження від Google. Перевірте Telegram перед повторною відправкою.';
+      }, 25000);
+      post.submit();
+    });
+  });
+})();
