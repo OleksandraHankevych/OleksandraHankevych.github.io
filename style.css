@@ -2184,7 +2184,6 @@ body.education-dialog-open {
 }
 .requests {
   background: #f6f0e9;
-  padding: clamp(75px, 8vw, 128px) 0 clamp(75px, 8vw, 125px);
   overflow: hidden;
 }
 .requests__header {
@@ -3284,7 +3283,7 @@ body.education-dialog-open {
   padding-block: 80px;
 }
 .requests {
-  padding-block: 80px;
+  padding-block: 60px;
 }
 .faq {
   padding-block: 80px;
@@ -3868,7 +3867,6 @@ body.education-dialog-open {
 /* Requests — photographic editorial gallery (five stories). */
 .requests--photographic {
   background: var(--cream-soft);
-  padding: clamp(80px, 8vw, 125px) 0 clamp(85px, 8vw, 125px);
 }
 .requests--photographic .requests__header {
   max-width: 940px;
