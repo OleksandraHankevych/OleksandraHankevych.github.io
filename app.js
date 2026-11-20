@@ -307,7 +307,7 @@ requestDetails.forEach(item => item.addEventListener('toggle', () => {
       const button = form.querySelector('[type="submit"]');
       button.disabled = true;
       status.dataset.state = ''; status.textContent = 'Надсилаємо заявку…';
-      const requestId = crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random();
+      const requestId = (globalThis.crypto?.randomUUID?.() || String(Date.now()) + Math.random());
       const frame = document.createElement('iframe');
       frame.name = 'lead-submit-' + requestId.replace(/[^a-zA-Z0-9-]/g, '');
       frame.hidden = true;
@@ -330,7 +330,8 @@ requestDetails.forEach(item => item.addEventListener('toggle', () => {
       };
       const onMessage = event => {
         if (!/^(https:\/\/([a-z0-9-]+\.)*(googleusercontent\.com|google\.com)|null)$/i.test(event.origin)) return;
-        const data = event.data;
+        let data = event.data;
+        if (typeof data === 'string') { try { data = JSON.parse(data); } catch { return; } }
         if (!data || data.type !== 'lead-form-result' || data.requestId !== requestId) return;
         cleanup();
         if (data.ok === true) {
@@ -347,8 +348,8 @@ requestDetails.forEach(item => item.addEventListener('toggle', () => {
       window.addEventListener('message', onMessage);
       timer = setTimeout(() => {
         cleanup(); status.dataset.state = 'error';
-        status.textContent = 'Не отримали підтвердження від Google. Перевірте Telegram перед повторною відправкою.';
-      }, 25000);
+        status.textContent = 'Google не підтвердив результат. Перевірте Telegram і не надсилайте повторно, якщо заявка вже прийшла.';
+      }, 10000);
       post.submit();
     });
   });
