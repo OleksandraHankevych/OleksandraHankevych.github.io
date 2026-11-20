@@ -5219,3 +5219,13 @@ body.blog-dialog-open {
 .lead-success__inner { padding-block: clamp(20px, 4vw, 50px); }
 .lead-success__inner > p { max-width: 490px; }
 .lead-success__inner > .button { margin-top: 12px; cursor: pointer; }
+
+/* Пояснення до необов’язкового поля запиту */
+.lead-form__field .lead-form__hint {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+}
