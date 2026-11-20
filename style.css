@@ -217,7 +217,7 @@ button:focus-visible {
   grid-template-columns: minmax(0, 42%) minmax(0, 58%);
   align-items: stretch;
   gap: 0;
-  min-height: 85vh;
+  min-height: 95vh;
 }
 .hero__copy {
   position: relative;
@@ -2184,6 +2184,7 @@ body.education-dialog-open {
 }
 .requests {
   background: #f6f0e9;
+  padding: clamp(75px, 8vw, 128px) 0 clamp(75px, 8vw, 125px);
   overflow: hidden;
 }
 .requests__header {
@@ -3283,7 +3284,7 @@ body.education-dialog-open {
   padding-block: 80px;
 }
 .requests {
-  padding-block: 60px;
+  padding-block: 80px;
 }
 .faq {
   padding-block: 80px;
